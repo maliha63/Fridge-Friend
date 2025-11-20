@@ -44,86 +44,96 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onStartCooking, onC
 
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 animate-fade-in p-4" aria-modal="true" role="dialog">
-            <div className="bg-gray-800 rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative flex flex-col">
-                {/* Added 'relative' here so the absolute 'close' button positions relative to this header, not the scrolling container */}
-                <div className="p-6 md:p-8 sticky top-0 bg-gray-800 z-10 border-b border-gray-700 relative">
+        <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center animate-fade-in bg-gray-900 md:bg-black/80" aria-modal="true" role="dialog">
+            {/* Mobile: Full screen, Desktop: Centered Card */}
+            <div className="bg-gray-800 w-full h-full md:h-auto md:max-h-[90vh] md:max-w-4xl md:rounded-2xl shadow-2xl overflow-y-auto relative flex flex-col">
+                
+                {/* Header */}
+                <div className="p-4 md:p-8 sticky top-0 bg-gray-800 z-20 border-b border-gray-700 shadow-md">
                     <button 
                         onClick={onClose} 
-                        className="absolute top-4 right-4 bg-red-600 text-white rounded-full p-2 hover:bg-red-700 transition-colors shadow-lg z-50 hover:scale-110" 
+                        className="absolute top-4 right-4 bg-gray-700 text-white hover:bg-red-600 hover:text-white rounded-full p-2 transition-all duration-200 shadow-lg z-50" 
                         aria-label="Close recipe details"
                     >
                         <XIcon className="w-6 h-6" />
                     </button>
-                    <h2 className="text-3xl font-extrabold text-white pr-12">{recipe.name}</h2>
-                    <p className="mt-2 text-gray-400">{recipe.description}</p>
-                    <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-300">
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-white pr-12 leading-tight">{recipe.name}</h2>
+                    <p className="mt-2 text-gray-400 text-sm md:text-base">{recipe.description}</p>
+                    <div className="flex flex-wrap gap-3 mt-4 text-sm text-gray-300">
                         <DifficultyBadge difficulty={recipe.difficulty} />
-                        <div className="flex items-center space-x-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
+                        <div className="flex items-center space-x-1 bg-gray-700/50 px-2 py-1 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.415L11 9.586V6z" clipRule="evenodd" />
                             </svg>
                             <span>{recipe.prepTime}</span>
                         </div>
-                        <div className="flex items-center space-x-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <div className="flex items-center space-x-1 bg-gray-700/50 px-2 py-1 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                             <span>{recipe.calories} kcal</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow">
+                {/* Content */}
+                <div className="p-4 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow overflow-y-auto">
                     <div>
-                        <div className="flex justify-between items-center mb-4">
+                        <div className="flex justify-between items-center mb-4 sticky top-0 bg-gray-800 py-2 z-10">
                             <h3 className="text-xl font-bold text-white">Ingredients</h3>
                             {unaddedMissingIngredients.length > 0 && (
                                 <button 
                                     onClick={handleAddAllMissing}
-                                    className="text-xs bg-cyan-800 hover:bg-cyan-700 text-cyan-200 font-semibold py-1 px-3 rounded-md transition-colors"
+                                    className="text-xs bg-cyan-900/50 hover:bg-cyan-800 text-cyan-300 font-semibold py-1.5 px-3 rounded-md transition-colors border border-cyan-700/50"
                                 >
                                     Add All Missing
                                 </button>
                             )}
                         </div>
-                        <ul className="space-y-3">
+                        <ul className="space-y-3 pb-4">
                             {recipe.ingredients.map(ing => (
-                                <li key={ing.name} className="flex items-center justify-between text-gray-300 bg-gray-700/50 p-3 rounded-lg">
-                                    <div className="flex items-center">
+                                <li key={ing.name} className="flex items-center justify-between text-gray-300 bg-gray-700/30 p-3 rounded-lg hover:bg-gray-700/50 transition-colors">
+                                    <div className="flex items-center flex-grow mr-2">
                                         {ing.present ? <CheckCircleIcon className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" /> : <ExclamationTriangleIcon className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />}
-                                        <span><span className="font-semibold text-white">{ing.quantity}</span> {ing.name}</span>
+                                        <span className="text-sm md:text-base"><span className="font-semibold text-white">{ing.quantity}</span> {ing.name}</span>
                                     </div>
                                     {!ing.present && (
                                         <button 
                                             onClick={() => handleAddToList(ing.name)} 
                                             disabled={addedItems.includes(ing.name)}
-                                            className="text-xs bg-cyan-600 hover:bg-cyan-700 disabled:bg-gray-500 disabled:cursor-not-allowed text-white font-bold py-1 px-3 rounded-md transition-colors flex-shrink-0 ml-2"
+                                            className={`text-xs font-bold py-1.5 px-3 rounded-md transition-colors flex-shrink-0 ml-2 ${
+                                                addedItems.includes(ing.name) 
+                                                ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
+                                                : 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-sm'
+                                            }`}
                                         >
-                                            {addedItems.includes(ing.name) ? 'Added' : 'Add'}
+                                            {addedItems.includes(ing.name) ? 'In List' : 'Add'}
                                         </button>
                                     )}
                                 </li>
                             ))}
                         </ul>
                     </div>
-                    <div>
-                        <h3 className="text-xl font-bold text-white mb-4">Instructions</h3>
-                        <ol className="space-y-4 text-gray-300">
+                    <div className="pb-20 md:pb-0">
+                        <h3 className="text-xl font-bold text-white mb-4 sticky top-0 bg-gray-800 py-2 z-10">Instructions</h3>
+                        <ol className="space-y-6 text-gray-300">
                             {recipe.steps.map((step, index) => (
-                                <li key={index} className="flex">
-                                    <span className="flex items-center justify-center h-6 w-6 rounded-full bg-cyan-500 text-gray-900 font-bold text-sm mr-4 flex-shrink-0 mt-1">{index + 1}</span>
-                                    <p className="leading-relaxed">{step}</p>
+                                <li key={index} className="flex group">
+                                    <span className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-700 text-cyan-400 font-bold text-sm mr-4 flex-shrink-0 border border-gray-600 group-hover:border-cyan-500 transition-colors">{index + 1}</span>
+                                    <p className="leading-relaxed text-sm md:text-base pt-1 group-hover:text-gray-100 transition-colors">{step}</p>
                                 </li>
                             ))}
                         </ol>
                     </div>
                 </div>
                 
-                <div className="p-6 md:p-8 mt-auto sticky bottom-0 bg-gray-800 z-10 border-t border-gray-700">
-                    <div className="text-center">
-                        <button onClick={onStartCooking} className="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-lg transition-colors text-lg">
-                            Start Cooking
-                        </button>
-                    </div>
+                {/* Footer Action */}
+                <div className="p-4 md:p-6 mt-auto sticky bottom-0 bg-gray-800/95 backdrop-blur-sm z-20 border-t border-gray-700">
+                    <button onClick={onStartCooking} className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-lg shadow-cyan-900/20 text-lg flex items-center justify-center space-x-2 transform active:scale-[0.98]">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Start Cooking Mode</span>
+                    </button>
                 </div>
             </div>
         </div>
