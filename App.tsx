@@ -191,14 +191,14 @@ const App: React.FC = () => {
         return <LoadingView />;
       case 'list':
         return (
-          <div className="container mx-auto flex flex-col md:flex-row gap-8 px-4 pt-2">
+          <div className="container mx-auto flex flex-col lg:flex-row gap-8 px-4 pt-2">
             <FilterSidebar 
                 activeDietaryFilters={activeDietaryFilters} 
                 onToggleDietaryFilter={handleToggleDietaryFilter}
                 activeCategoryFilters={activeCategoryFilters}
                 onToggleCategoryFilter={handleToggleCategoryFilter}
             />
-            <div className="flex-grow">
+            <div className="flex-grow w-full">
               <RecipeList 
                 recipes={filteredRecipes} 
                 onSelectRecipe={handleSelectRecipe} 
