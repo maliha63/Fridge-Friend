@@ -1,3 +1,4 @@
+
 import React from 'react';
 import type { Recipe } from '../types';
 
@@ -18,7 +19,7 @@ const RecipeMessage: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
             </div>
              <div className="flex items-center">
                 <span className="font-semibold text-brand-text-secondary mr-1.5">Calories:</span>
-                <span className="text-brand-text-primary">{recipe.calories} kcal</span>
+                <span className="text-brand-text-primary">{recipe.calories.replace(/ ?kcal/i, '')} kcal</span>
             </div>
         </div>
 
