@@ -1,4 +1,4 @@
-# Fridge‑Friend 🧊
+# **<center>Fridge‑Friend 🧊</center>**
 
 ![Vite](https://img.shields.io/badge/Vite-FF4655?style=for-the-badge&logo=vite&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
@@ -8,21 +8,21 @@
 
 ---
 
-## 🚀 Demo
+## **<center>Demo</center>**
 
 Live version: [Fridge‑Friend](https://fridge-friend-chi.vercel.app/)
 
 ---
 
-## 💡 Why This Project Exists
+## **<center>Why This Project Exists</center>**
 
-- To make meal planning easier and reduce food waste.  
-- To help people discover recipes based on whatever is left in their fridge.  
-- To practice building a real-world, user-friendly web app using modern web tools.
+- To make meal planning easier and reduce food waste  
+- To help people discover recipes based on whatever is left in their fridge  
+- To practice building a real-world, user-friendly web app using modern web tools  
 
 ---
 
-## 🧱 Built With
+## **<center>Built With</center>**
 
 - **Vite** — Fast, modern build tool  
 - **React / Vanilla JS** — For UI  
@@ -32,29 +32,16 @@ Live version: [Fridge‑Friend](https://fridge-friend-chi.vercel.app/)
 
 ---
 
-## 📦 Getting Started
+## **<center>Getting Started</center>**
 
-### Prerequisites
-
-- Node.js (>= 14)  
-- npm (or yarn / pnpm if you prefer)
-
-### Installation
-
-1. Clone the repo  
-   ```bash
-   git clone https://github.com/maliha63/fridge-friend.git
-   cd fridge-friend
-Install dependencies
-
-bash
-Copy code
+**Install dependencies**  
+```bash
 npm install
-Create a .env.local file in the root and add your API key:
+Create a .env.local file in the root and add your API key
 
 ini
 Copy code
-VITE_GEMINI_API_KEY=AIzaSyDzAM_armV1CoUnCjRYkUH_B-LUDks_XoE
+VITE_GEMINI_API_KEY=YOUR_API_KEY_HERE
 Run the development server
 
 bash
@@ -65,7 +52,7 @@ Build for production
 bash
 Copy code
 npm run build
-🧰 Usage
+<center>Usage</center>
 Open the app in your browser (http://localhost:3000)
 
 Enter the list of ingredients you have in your fridge
@@ -76,7 +63,7 @@ Browse suggested recipes or meal ideas
 
 (Optional) Save your favorite recipes / get a plan
 
-🎯 Features
+<center>Features</center>
 Input ingredients manually
 
 Get recipe suggestions based on what you have
@@ -87,18 +74,18 @@ Clean, responsive user interface
 
 Favicon for a polished look
 
-📈 Roadmap
- Save recipes to a “favorites” list
+<center>Roadmap</center>
+Save recipes to a “favorites” list
 
- Add user authentication (login / signup)
+Add user authentication (login / signup)
 
- Allow sharing of ingredient lists
+Allow sharing of ingredient lists
 
- Export shopping list for missing ingredients
+Export shopping list for missing ingredients
 
- Improve UI / theme (dark mode, animations)
+Improve UI / theme (dark mode, animations)
 
-❗ Known Issues / Limitations
+<center>Known Issues / Limitations</center>
 Ingredients input is not very flexible (comma-separated only)
 
 Recipe suggestions depend on the quality of the API
@@ -107,7 +94,7 @@ No offline support yet
 
 Rate limits on API usage (depending on your plan)
 
-🤝 Contributing
+<center>Contributing</center>
 I’d love your help! Here’s how you can contribute:
 
 Fork the project
@@ -130,10 +117,10 @@ Test your changes locally before submitting
 
 Document new features / changes in the README
 
-📜 License
+<center>License</center>
 This project is open-source. Feel free to use, modify, and distribute under the MIT License.
 
-✉️ Contact / Credits
+<center>Contact / Credits</center>
 Author: Maliha Bathool C — malihabathoolc@gmail.com
 
 GitHub: https://github.com/maliha63
@@ -142,7 +129,7 @@ Project Link: https://fridge-friend-chi.vercel.app/
 
 Inspiration & Thanks: Thanks to open-source projects, tutorials, and communities that helped me build Fridge‑Friend.
 
-⚙️ Acknowledgments
+<center>Acknowledgments</center>
 Thanks to the Vite team for the blazing-fast bundler
 
 Gemini API documentation and support
