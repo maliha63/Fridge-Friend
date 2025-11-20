@@ -1,155 +1,148 @@
-<div align="center">
+# Fridge‑Friend 🥖
 
-# 🧊 Fridge‑Friend
-
-**Reduce food waste. Save time. Cook delicious meals.**
-
-A smart web application that leverages AI to suggest recipes based on the ingredients currently in your fridge.
-
-
-
-[![Vite](https://img.shields.io/badge/Vite-B73C9D?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Gemini API](https://img.shields.io/badge/Gemini_API-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-
-[Live Demo](https://fridge-friend-chi.vercel.app/) • [Report Bug](https://github.com/maliha63/fridge-friend/issues) • [Request Feature](https://github.com/maliha63/fridge-friend/issues)
-
-</div>
+A smart web app that suggests recipes based on the ingredients you already have in your fridge.
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
-- [About the Project](#-about-the-project)
-- [Key Features](#-key-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#-usage)
-- [Roadmap](#-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
+* [Demo](#demo)
+* [Features](#features)
+* [Tech Stack](#tech-stack)
+* [Project Structure](#project-structure)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Scripts](#scripts)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
 
 ---
 
-## 💡 About the Project
+## Demo
 
-**Fridge-Friend** solves the daily dilemma of "What should I cook?" by utilizing the Gemini API. Instead of browsing endless recipe sites, simply input what you have on hand, and let AI generate a custom recipe for you. It's designed to be fast, mobile-responsive, and user-friendly.
-
----
-
-## ✨ Key Features
-
-### Currently Available
-* 🥕 **Smart Ingredient Input**: easily add ingredients manually to your virtual fridge.
-* 🤖 **AI-Powered Recipes**: Generates unique recipes using Google's Gemini API based *only* on your inputs.
-* 📱 **Fully Responsive**: Optimized for a seamless experience on both mobile and desktop.
-* 📜 **Recipe History**: Keep track of previously generated suggestions.
-* 🎨 **Modern UI**: Clean interface styled with Tailwind CSS.
-
-### 🚀 Upcoming (Roadmap)
-* ⭐ **Favorites System**: Save your best recipes for later.
-* 🛒 **Shopping List Export**: Automatically generate a list for missing ingredients.
-* 🔐 **User Accounts**: Sync your fridge across devices.
+Live version: [Fridge‑Friend](https://fridge-friend-chi.vercel.app/)
 
 ---
 
-## 🛠 Tech Stack
+## Features
 
-| Category | Technology | Description |
-| :--- | :--- | :--- |
-| **Build Tool** | ![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=vite&logoColor=white) | Fast development server and bundler |
-| **Frontend** | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) | Component-based UI library |
-| **AI Model** | ![Gemini](https://img.shields.io/badge/-Gemini-8E75B2?logo=google&logoColor=white) | LLM for recipe generation |
-| **Styling** | ![Tailwind](https://img.shields.io/badge/-Tailwind-38B2AC?logo=tailwind-css&logoColor=white) | Utility-first CSS framework |
-| **Deployment** | ![Vercel](https://img.shields.io/badge/-Vercel-000000?logo=vercel&logoColor=white) | Cloud platform for static sites |
+* **Ingredient Input**: Add your fridge ingredients manually
+* **Recipe Suggestions**: AI-powered suggestions using Gemini API
+* **Responsive UI**: Works on mobile and desktop
+* **Favorites**: Save your favorite recipes (planned feature)
+* **History**: Keep track of previously suggested recipes
+* **Shopping List**: Export missing ingredients (planned feature)
+* **Favicon**: Polished app icon for browser tab
 
 ---
 
-## 📂 Project Structure
+## Tech Stack
+
+* **Vite** — Modern build tool
+* **React / Vanilla JS** — User interface
+* **Gemini API** — AI-powered recipe suggestions
+* **CSS / Tailwind CSS** — Styling
+* **Vercel** — Deployment
+
+---
+
+## Project Structure
+
+```
+├── index.html               # Main HTML file
+├── package.json             # Dependencies and scripts
+├── vite.config.js           # Vite configuration
+├── src/
+│   ├── main.js              # Entry point JS
+│   ├── App.js               # Main App component
+│   ├── components/          # Reusable components
+│   └── assets/              # Images, favicon, etc.
+└── .env.local               # Environment variables (API key)
+```
+
+---
+
+## Installation
+
+1. **Clone the repository**
 
 ```bash
-fridge-friend/
-├── public/              # Static assets
-├── src/
-│   ├── assets/          # Images, fonts, icons
-│   ├── components/      # Reusable UI components
-│   ├── App.jsx          # Main Application component
-│   ├── main.jsx         # Entry point
-│   └── index.css        # Global styles (Tailwind directives)
-├── .env.local           # Environment variables (Git ignored)
-├── index.html           # HTML template
-├── package.json         # Project dependencies & scripts
-├── tailwind.config.js   # Tailwind configuration
-└── vite.config.js       # Vite configuration
-
-🚀 Getting Started
-Follow these instructions to set up the project locally on your machine.
-
-Prerequisites
-Ensure you have the following installed:
-
-Node.js (v14 or higher)
-
-npm (Node Package Manager)
-
-Installation
-Clone the repository
-
-Bash
-
-git clone [https://github.com/maliha63/fridge-friend.git](https://github.com/maliha63/fridge-friend.git)
+git clone https://github.com/maliha63/fridge-friend.git
 cd fridge-friend
-Install dependencies
+```
 
-Bash
+2. **Install dependencies**
 
+```bash
 npm install
-Configure Environment Variables Create a .env.local file in the root directory and add your Gemini API key:
+```
 
-Ini, TOML
+3. **Create `.env.local`** and add your API key
 
-VITE_GEMINI_API_KEY=your_actual_api_key_here
-Note: You can get a free API key from Google AI Studio.
+```
+VITE_GEMINI_API_KEY=YOUR_API_KEY_HERE
+```
 
-Start the development server
+4. **Run development server**
 
-Bash
-
+```bash
 npm run dev
-Open the app Visit http://localhost:5173 (or the port shown in your terminal) in your browser.
+```
 
-🎮 Usage
-Add Ingredients: Type an ingredient (e.g., "Chicken", "Tomato") and hit enter or click add.
+5. **Build for production**
 
-Generate: Click the "Find Recipes" button.
+```bash
+npm run build
+```
 
-Cook: Follow the step-by-step instructions provided by the AI.
+---
 
-Review: Check your history tab to see past suggestions.
+## Usage
 
-🤝 Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+1. Open the app in your browser (`http://localhost:3000`)
+2. Enter ingredients available in your fridge
+3. Click **Find Recipes**
+4. Browse suggestions or save favorites
 
-Fork the Project
+---
 
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
+## Scripts
 
-Commit your Changes (git commit -m 'Add some AmazingFeature')
+* `npm run dev` — Start development server
+* `npm run build` — Build production-ready app
 
-Push to the Branch (git push origin feature/AmazingFeature)
+---
 
-Open a Pull Request
+## Contributing
 
-📄 License
-Distributed under the MIT License. See LICENSE for more information.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Make changes and test locally
+4. Commit (`git commit -m "Add feature"`)
+5. Push (`git push origin feature/my-feature`)
+6. Open a Pull Request
 
-📬 Contact
-Maliha Bathool C
+**Tips:**
 
-<div align="center"> <br /> Built with ❤️ using <b>Vite</b>, <b>React</b>, and <b>Gemini API</b> </div>
+* Follow existing code style
+* Test your changes locally before submitting
+* Document new features / changes in the README
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Contact
+
+* **Author**: Maliha Bathool C — [malihabathoolc@gmail.com](mailto:malihabathoolc@gmail.com)
+* **GitHub**: [https://github.com/maliha63](https://github.com/maliha63)
+* **Live App**: [https://fridge-friend-chi.vercel.app/](https://fridge-friend-chi.vercel.app/)
+
+---
+
+Built with ❤️ using Vite, React, and Gemini API
