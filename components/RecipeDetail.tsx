@@ -68,8 +68,11 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onStartCooking, onC
                             <span>{recipe.prepTime}</span>
                         </div>
                         <div className="flex items-center space-x-1 bg-gray-700/50 px-2 py-1 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                            <span>{recipe.calories} kcal</span>
+                             {/* Fire Icon for Calories */}
+                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor">
+                                <path fillRule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
+                            </svg>
+                            <span>{recipe.calories.replace(/ ?kcal/i, '')} kcal</span>
                         </div>
                     </div>
                 </div>
