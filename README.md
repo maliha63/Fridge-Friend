@@ -1,20 +1,152 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Fridge‑Friend 🧊
 
-# Run and deploy your AI Studio app
+![Vite](https://img.shields.io/badge/Vite-FF4655?style=for-the-badge&logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-This contains everything you need to run your app locally.
+**Fridge‑Friend** is a smart web app that helps you figure out what to cook with the ingredients you already have in your fridge. Just add your ingredients, and the app will suggest recipes or a plan – no more food waste, just creativity!
 
-View your app in AI Studio: https://ai.studio/apps/drive/1A3rkQFLcaSuT_pKN7L0DZJxCOOjkSyiA
+---
 
-## Run Locally
+## 🚀 Demo
 
-**Prerequisites:**  Node.js
+Live version: [Fridge‑Friend](https://fridge-friend-chi.vercel.app/)
 
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 💡 Why This Project Exists
+
+- To make meal planning easier and reduce food waste.  
+- To help people discover recipes based on whatever is left in their fridge.  
+- To practice building a real-world, user-friendly web app using modern web tools.
+
+---
+
+## 🧱 Built With
+
+- **Vite** — Fast, modern build tool  
+- **React / Vanilla JS** — For UI  
+- **Gemini API** — For AI-powered recipe suggestions  
+- **CSS / Tailwind CSS** — Styling  
+- **Vercel** — For deployment  
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js (>= 14)  
+- npm (or yarn / pnpm if you prefer)
+
+### Installation
+
+1. Clone the repo  
+   ```bash
+   git clone https://github.com/maliha63/fridge-friend.git
+   cd fridge-friend
+Install dependencies
+
+bash
+Copy code
+npm install
+Create a .env.local file in the root and add your API key:
+
+ini
+Copy code
+VITE_GEMINI_API_KEY=AIzaSyDzAM_armV1CoUnCjRYkUH_B-LUDks_XoE
+Run the development server
+
+bash
+Copy code
+npm run dev
+Build for production
+
+bash
+Copy code
+npm run build
+🧰 Usage
+Open the app in your browser (http://localhost:3000)
+
+Enter the list of ingredients you have in your fridge
+
+Click "Find Recipes"
+
+Browse suggested recipes or meal ideas
+
+(Optional) Save your favorite recipes / get a plan
+
+🎯 Features
+Input ingredients manually
+
+Get recipe suggestions based on what you have
+
+AI-powered ideas using Gemini API
+
+Clean, responsive user interface
+
+Favicon for a polished look
+
+📈 Roadmap
+ Save recipes to a “favorites” list
+
+ Add user authentication (login / signup)
+
+ Allow sharing of ingredient lists
+
+ Export shopping list for missing ingredients
+
+ Improve UI / theme (dark mode, animations)
+
+❗ Known Issues / Limitations
+Ingredients input is not very flexible (comma-separated only)
+
+Recipe suggestions depend on the quality of the API
+
+No offline support yet
+
+Rate limits on API usage (depending on your plan)
+
+🤝 Contributing
+I’d love your help! Here’s how you can contribute:
+
+Fork the project
+
+Create a feature branch (git checkout -b feature/my-feature)
+
+Make your changes
+
+Commit (git commit -m "Add some feature")
+
+Push (git push origin feature/my-feature)
+
+Open a Pull Request
+
+Tips:
+
+Follow the existing code style
+
+Test your changes locally before submitting
+
+Document new features / changes in the README
+
+📜 License
+This project is open-source. Feel free to use, modify, and distribute under the MIT License.
+
+✉️ Contact / Credits
+Author: Maliha Bathool C — malihabathoolc@gmail.com
+
+GitHub: https://github.com/maliha63
+
+Project Link: https://fridge-friend-chi.vercel.app/
+
+Inspiration & Thanks: Thanks to open-source projects, tutorials, and communities that helped me build Fridge‑Friend.
+
+⚙️ Acknowledgments
+Thanks to the Vite team for the blazing-fast bundler
+
+Gemini API documentation and support
+
+UI inspiration from recipe / meal-planner apps
+
+README design ideas from “Best README Template” by othneildrew (GitHub)
