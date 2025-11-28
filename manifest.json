@@ -1,0 +1,30 @@
+{
+  "name": "FridgeFriend - AI Culinary Assistant",
+  "short_name": "FridgeFriend",
+  "description": "Snap a photo of your fridge, and our AI will identify ingredients and suggest delicious recipes for you.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
