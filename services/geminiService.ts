@@ -2,8 +2,8 @@ import { GoogleGenAI, Type, Content } from "@google/genai";
 import type { Recipe, DietaryFilter } from '../types';
 import { DIETARY_FILTERS } from "../constants";
 
-// Use VITE_ prefix for Vite environment variables
-const API_KEY = process.env.VITE_GEMINI_API_KEY || "";
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
 if (!API_KEY) {
   console.warn("VITE_GEMINI_API_KEY is not set. Some features may not work.");
 }
