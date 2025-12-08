@@ -2,8 +2,7 @@
 
 A smart web app that suggests recipes based on the ingredients you already have in your fridge.
 
----<img width="1366" height="768" alt="Fridge Friend" src="https://github.com/user-attachments/assets/0ae8c24e-e603-456c-b8e4-f78d6188f764" />
-
+---<img width="1366" height="768" alt="Fridge Friend" src="https://github.com/user-attachments/assets/0b791f13-e969-4f4f-984b-6ebb0ae1eb56" />
 
 ## Table of Contents
 
@@ -15,6 +14,7 @@ A smart web app that suggests recipes based on the ingredients you already have 
 * [Usage](#usage)
 * [Scripts](#scripts)
 * [Contributing](#contributing)
+
 * [License](#license)
 * [Contact](#contact)
 
