@@ -13,7 +13,6 @@ import History from './components/History';
 import Favorites from './components/Favorites';
 import RecipeGeneratorChatbot from './components/RecipeGeneratorChatbot';
 import DishGenIcon from './components/icons/DishGenIcon';
-import LoadingView from './components/LoadingView';
 import Settings from './components/Settings';
 import usePWA from './hooks/usePWA';
 
@@ -93,7 +92,15 @@ const App: React.FC = () => {
   const handleImageUpload = async (file: File) => {
     setIsLoading(true);
     setError(null);
-    setView('loading');
+    
+    // Store previous view to revert on error
+    const previousView = view;
+    
+    // Switch to list view to show skeletons if we're uploading from the main screen
+    if (view === 'upload' || view === 'loading') {
+        setView('list');
+    }
+
     try {
       const result = await getRecipesFromImage(file, activeDietaryFilters);
       
@@ -116,7 +123,9 @@ const App: React.FC = () => {
       });
       setView('list');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred.');
+      const msg = err instanceof Error ? err.message : 'An unknown error occurred.';
+      setError(msg);
+      // Revert to upload view to show the error message
       setView('upload');
     } finally {
       setIsLoading(false);
@@ -260,8 +269,6 @@ const App: React.FC = () => {
     switch (view) {
       case 'upload':
         return <div className="container mx-auto p-4"><ImageUpload onImageUpload={handleImageUpload} error={error} /></div>;
-      case 'loading':
-        return <LoadingView />;
       case 'list':
         return (
           <div className="container mx-auto flex flex-col lg:flex-row gap-8 px-4 pt-2">
@@ -279,6 +286,7 @@ const App: React.FC = () => {
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 hasInitialRecipes={recipes.length > 0}
+                isLoading={isLoading}
                 isFavorite={(recipe) => isRecipeFavorite(recipe)}
                 onToggleFavorite={handleToggleFavorite}
               />
