@@ -3,6 +3,7 @@ import React from 'react';
 import type { Recipe } from '../types';
 import RecipeCard from './RecipeCard';
 import SearchIcon from './icons/SearchIcon';
+import RecipeSkeleton from './RecipeSkeleton';
 
 interface RecipeListProps {
   recipes: Recipe[];
@@ -11,11 +12,41 @@ interface RecipeListProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   hasInitialRecipes: boolean;
+  isLoading?: boolean;
   isFavorite?: (recipe: Recipe) => boolean;
   onToggleFavorite?: (e: React.MouseEvent, recipe: Recipe) => void;
 }
 
-const RecipeList: React.FC<RecipeListProps> = ({ recipes, onSelectRecipe, onReset, searchQuery, onSearchChange, hasInitialRecipes, isFavorite, onToggleFavorite }) => {
+const RecipeList: React.FC<RecipeListProps> = ({ 
+  recipes, 
+  onSelectRecipe, 
+  onReset, 
+  searchQuery, 
+  onSearchChange, 
+  hasInitialRecipes, 
+  isLoading = false,
+  isFavorite, 
+  onToggleFavorite 
+}) => {
+  if (isLoading) {
+    return (
+      <div className="animate-fade-in w-full">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+            <div className="h-10 bg-gray-700 rounded w-64 animate-pulse"></div>
+            <div className="flex flex-wrap gap-3 w-full md:w-auto">
+                <div className="h-10 bg-gray-700 rounded w-full md:w-64 animate-pulse"></div>
+                <div className="h-10 bg-gray-700 rounded w-24 animate-pulse"></div>
+            </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+            {[...Array(6)].map((_, i) => (
+                <RecipeSkeleton key={i} />
+            ))}
+        </div>
+      </div>
+    );
+  }
+
   if (!hasInitialRecipes) {
     return (
         <div className="text-center text-gray-400">
