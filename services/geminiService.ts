@@ -2,10 +2,9 @@ import { GoogleGenAI, Type, Content } from "@google/genai";
 import type { Recipe, DietaryFilter } from '../types';
 import { DIETARY_FILTERS } from "../constants";
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
+const API_KEY = process.env.API_KEY;
 if (!API_KEY) {
-  console.warn("VITE_GEMINI_API_KEY is not set. Some features may not work.");
+  throw new Error("API_KEY environment variable is not set.");
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
@@ -50,44 +49,59 @@ const textRecipeSchema = {
 
 
 const multiRecipeSchema = {
-  type: Type.ARRAY,
-  items: {
-    type: Type.OBJECT,
-    properties: {
-      name: { type: Type.STRING, description: 'Creative and appetizing name for the dish.' },
-      description: { type: Type.STRING, description: 'Concise description (1 sentence).' },
-      prepTime: { type: Type.STRING, description: 'Time, e.g., "45 mins".' },
-      calories: { type: Type.STRING, description: 'Calories, e.g., "450".' },
-      difficulty: { type: Type.STRING, description: 'Difficulty: "Easy", "Medium", "Hard".' },
-      category: { type: Type.STRING, description: 'Category: Breakfast, Lunch, Dinner, Snack, Juice, Starter, Roast, Dessert.' },
-      dietaryTags: {
-        type: Type.ARRAY,
-        description: `List of dietary classifications. Options: ${DIETARY_FILTERS.join(', ')}.`,
-        items: {
-          type: Type.STRING
-        }
-      },
-      ingredients: {
-        type: Type.ARRAY,
-        description: 'List of ingredients.',
-        items: {
-          type: Type.OBJECT,
-          properties: {
-            name: { type: Type.STRING, description: 'Name.' },
-            quantity: { type: Type.STRING, description: 'Qty.' },
-            present: { type: Type.BOOLEAN, description: 'True if in image.' },
-          },
-          required: ['name', 'quantity', 'present']
-        }
-      },
-      steps: {
-        type: Type.ARRAY,
-        description: 'Cooking steps.',
-        items: { type: Type.STRING }
-      }
+  type: Type.OBJECT,
+  properties: {
+    isFoodImage: { 
+      type: Type.BOOLEAN, 
+      description: 'True if the image contains food, ingredients, or a fridge/kitchen context. False if it is an image of people, places, or non-food objects.' 
     },
-    required: ['name', 'description', 'prepTime', 'calories', 'difficulty', 'category', 'dietaryTags', 'ingredients', 'steps']
-  }
+    validationMessage: { 
+      type: Type.STRING, 
+      description: 'A polite message explaining why the image was rejected if isFoodImage is false (e.g., "This looks like a picture of a car. Please upload a photo of your fridge or ingredients.").' 
+    },
+    recipes: {
+      type: Type.ARRAY,
+      description: 'List of generated recipes.',
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          name: { type: Type.STRING, description: 'Creative and appetizing name for the dish.' },
+          description: { type: Type.STRING, description: 'Concise description (1 sentence).' },
+          prepTime: { type: Type.STRING, description: 'Time, e.g., "45 mins".' },
+          calories: { type: Type.STRING, description: 'Calories, e.g., "450".' },
+          difficulty: { type: Type.STRING, description: 'Difficulty: "Easy", "Medium", "Hard".' },
+          category: { type: Type.STRING, description: 'Category: Breakfast, Lunch, Dinner, Snack, Juice, Starter, Roast, Dessert.' },
+          dietaryTags: {
+            type: Type.ARRAY,
+            description: `List of dietary classifications. Options: ${DIETARY_FILTERS.join(', ')}.`,
+            items: {
+              type: Type.STRING
+            }
+          },
+          ingredients: {
+            type: Type.ARRAY,
+            description: 'List of ingredients.',
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                name: { type: Type.STRING, description: 'Name.' },
+                quantity: { type: Type.STRING, description: 'Qty.' },
+                present: { type: Type.BOOLEAN, description: 'True if in image.' },
+              },
+              required: ['name', 'quantity', 'present']
+            }
+          },
+          steps: {
+            type: Type.ARRAY,
+            description: 'Cooking steps.',
+            items: { type: Type.STRING }
+          }
+        },
+        required: ['name', 'description', 'prepTime', 'calories', 'difficulty', 'category', 'dietaryTags', 'ingredients', 'steps']
+      }
+    }
+  },
+  required: ['isFoodImage', 'recipes']
 };
 
 const shoppingListSchema = {
@@ -111,7 +125,7 @@ export const categorizeShoppingList = async (items: string[]): Promise<Record<st
     const prompt = `You are an expert grocery shopper. Categorize the following shopping list items into logical grocery store aisles. The item list is: ${items.join(', ')}. Provide the output as a JSON object that strictly follows the provided schema. Each item from the list must appear in exactly one category. If a category has no items, do not include its key in the response.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.0-flash',
         contents: prompt,
         config: {
             responseMimeType: 'application/json',
@@ -129,7 +143,7 @@ export const categorizeShoppingList = async (items: string[]): Promise<Record<st
 
 export const generateRecipeFromText = async (prompt: string): Promise<Recipe> => {
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.0-flash',
         contents: `You are an expert chef. Generate a single, complete, and creative recipe based on this user request: "${prompt}". Provide the output as a JSON object that strictly follows the provided schema. Do not include any markdown formatting or introductory text.`,
         config: {
             responseMimeType: 'application/json',
@@ -161,18 +175,21 @@ export const getRecipesFromImage = async (imageFile: File, filters: DietaryFilte
 
   const textPart = {
     text: `You are an expert culinary AI.
-    1. Identify edible ingredients in the fridge image.
-    2. Generate 12 diverse and creative recipes using these ingredients.
-    3. Include a strong variety of Indian cuisine as well as other global styles.
-    4. Assign exactly one category (Breakfast, Lunch, Dinner, Snack, etc.) to each.
-    5. Mark ingredients as present: true/false.
-    6. ${dietFilterText}
-    7. Populate 'dietaryTags'.
-    8. Output strict JSON matching the schema. Keep descriptions concise to optimize speed.`,
+    1. FIRST, check if the image contains food, ingredients, or a fridge/kitchen context.
+    2. If it DOES NOT contain food (e.g., it's a person, a place, or a non-food object), set 'isFoodImage' to false and provide a helpful 'validationMessage'.
+    3. If it DOES contain food, set 'isFoodImage' to true.
+    4. Identify edible ingredients in the image.
+    5. Generate 12 diverse and creative recipes using these ingredients.
+    6. Include a strong variety of Indian cuisine as well as other global styles.
+    7. Assign exactly one category (Breakfast, Lunch, Dinner, Snack, etc.) to each.
+    8. Mark ingredients as present: true/false.
+    9. ${dietFilterText}
+    10. Populate 'dietaryTags'.
+    11. Output strict JSON matching the schema. Keep descriptions concise to optimize speed.`,
   };
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.0-flash',
     contents: { parts: [imagePart, textPart] },
     config: {
       responseMimeType: 'application/json',
@@ -181,19 +198,24 @@ export const getRecipesFromImage = async (imageFile: File, filters: DietaryFilte
   });
 
   const jsonText = response.text.trim();
+  let parsedJson;
   try {
-    const parsedJson = JSON.parse(jsonText);
-    if (!Array.isArray(parsedJson) || parsedJson.length === 0) {
-        throw new Error("No recipes were generated. Please try a different image.");
-    }
-
-    return parsedJson as Recipe[];
-
-  } catch (error) {
-    console.error("Failed to parse Gemini response:", error);
+    parsedJson = JSON.parse(jsonText);
+  } catch (parseError) {
+    console.error("Failed to parse Gemini JSON:", parseError);
     console.error("Raw response text:", jsonText);
     throw new Error("The AI returned an unexpected response format. Please try again.");
   }
+
+  if (parsedJson.isFoodImage === false) {
+    throw new Error(parsedJson.validationMessage || "Please upload a photo of food or ingredients.");
+  }
+
+  if (!Array.isArray(parsedJson.recipes) || parsedJson.recipes.length === 0) {
+    throw new Error("No recipes were generated. Please try a different image.");
+  }
+
+  return parsedJson.recipes as Recipe[];
 };
 
 export interface ChatbotResponse {
@@ -211,7 +233,7 @@ export const getChatbotResponse = async (newMessage: string): Promise<ChatbotRes
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-2.0-flash',
             contents: conversationForApi,
             config: {
               systemInstruction: 'You are a helpful and friendly culinary assistant named FridgeFriend. Answer cooking-related questions conversationally. Provide creative recipe ideas when asked, but do not format them as structured data or JSON.',
