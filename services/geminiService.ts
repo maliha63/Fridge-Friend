@@ -125,7 +125,7 @@ export const categorizeShoppingList = async (items: string[]): Promise<Record<st
     const prompt = `You are an expert grocery shopper. Categorize the following shopping list items into logical grocery store aisles. The item list is: ${items.join(', ')}. Provide the output as a JSON object that strictly follows the provided schema. Each item from the list must appear in exactly one category. If a category has no items, do not include its key in the response.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {
             responseMimeType: 'application/json',
@@ -143,7 +143,7 @@ export const categorizeShoppingList = async (items: string[]): Promise<Record<st
 
 export const generateRecipeFromText = async (prompt: string): Promise<Recipe> => {
     const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3-flash-preview',
         contents: `You are an expert chef. Generate a single, complete, and creative recipe based on this user request: "${prompt}". Provide the output as a JSON object that strictly follows the provided schema. Do not include any markdown formatting or introductory text.`,
         config: {
             responseMimeType: 'application/json',
@@ -189,7 +189,7 @@ export const getRecipesFromImage = async (imageFile: File, filters: DietaryFilte
   };
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-3-flash-preview',
     contents: { parts: [imagePart, textPart] },
     config: {
       responseMimeType: 'application/json',
@@ -233,7 +233,7 @@ export const getChatbotResponse = async (newMessage: string): Promise<ChatbotRes
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-3-flash-preview',
             contents: conversationForApi,
             config: {
               systemInstruction: 'You are a helpful and friendly culinary assistant named FridgeFriend. Answer cooking-related questions conversationally. Provide creative recipe ideas when asked, but do not format them as structured data or JSON.',
