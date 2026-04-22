@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({
 
     const handleFridgeClick = () => {
         if (isLoading) {
-            setView('loading');
+            setView('list');
         } else if (hasRecipes) {
             setView('list');
         } else {
@@ -103,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({
                 <ShoppingListIcon className="w-5 h-5" />
                 <span className="hidden sm:inline">Shopping List</span>
                 {shoppingListCount > 0 && (
-                    <span className="absolute -top-0 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-gray-900">
+                    <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-gray-900">
                         {shoppingListCount}
                     </span>
                 )}
