@@ -266,6 +266,8 @@ const App: React.FC = () => {
   const shoppingListCount = useMemo(() => shoppingList.filter(item => !item.purchased).length, [shoppingList]);
 
   const renderContent = () => {
+    // Force 'list' view if we are loading to show skeletons, regardless of what 'view' state says
+    // but only if we are in the "fridge flow" (upload or list)
     const effectiveView = (isLoading && (view === 'upload')) ? 'list' : view;
 
     switch (effectiveView) {
