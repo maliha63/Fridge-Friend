@@ -22,7 +22,7 @@ A smart web app that suggests recipes based on the ingredients you already have 
 
 ## Demo
 
-Live version: [Fridge‑Friend](https://fridge-friend-chi.vercel.app/)
+Live version: [Fridge‑Friend](https://fridge-friend-h18t.vercel.app/)
 
 ---
 
