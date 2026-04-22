@@ -266,7 +266,9 @@ const App: React.FC = () => {
   const shoppingListCount = useMemo(() => shoppingList.filter(item => !item.purchased).length, [shoppingList]);
 
   const renderContent = () => {
-    switch (view) {
+    const effectiveView = (isLoading && (view === 'upload')) ? 'list' : view;
+
+    switch (effectiveView) {
       case 'upload':
         return <div className="container mx-auto p-4"><ImageUpload onImageUpload={handleImageUpload} error={error} /></div>;
       case 'list':
